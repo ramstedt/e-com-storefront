@@ -1,35 +1,25 @@
-"use client";
-import { IoSearchOutline, IoBagOutline } from "react-icons/io5";
+import {
+  IoSearchOutline,
+  IoBagOutline,
+  IoPersonOutline,
+} from "react-icons/io5";
 import { AiOutlineGlobal } from "react-icons/ai";
-import { MdOutlinePersonOutline } from "react-icons/md";
 import { RxHamburgerMenu } from "react-icons/rx";
+
 import Link from "next/link";
-import styled from "styled-components";
-
-const Wrapper = styled.nav`
-  height: 50px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 1rem 0 1rem;
-`;
-
-const Links = styled.div`
-  display: flex;
-  gap: 1rem;
-`;
+import "./navbar.css";
 
 export default function Navbar({ logo }) {
   return (
-    <Wrapper>
+    <nav>
       <Link href="/">{logo}</Link>
-      <Links>
+      <div className="navLinks">
         <AiOutlineGlobal />
         <IoSearchOutline />
-        <MdOutlinePersonOutline />
+        <IoPersonOutline />
         <IoBagOutline />
         <RxHamburgerMenu />
-      </Links>
-    </Wrapper>
+      </div>
+    </nav>
   );
 }

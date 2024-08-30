@@ -1,7 +1,15 @@
-"use client";
-import styled from "styled-components";
+import "./footer.css";
+import { FaTiktok, FaFacebook, FaInstagram } from "react-icons/fa";
 
-const Wrapper = styled.footer``;
 export default function Footer({}) {
-  return <Wrapper></Wrapper>;
+  return (
+    <footer>
+      <div className=""></div>
+      <div className="footerSocials">
+        <FaTiktok />
+        <FaFacebook />
+        <FaInstagram />
+      </div>
+    </footer>
+  );
 }
