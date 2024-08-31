@@ -1,7 +1,8 @@
 'use client';
-import { useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
+import SizeButtons from '../_Molecules/SizeButtons/SizeButtons';
+import { addItemToCart } from '@/app/lib/cartHelper';
 
 const Wrapper = styled.div`
   display: flex;
@@ -100,48 +101,39 @@ const MediaWrapper = styled.div`
 `;
 
 export default function ProductCard({}) {
-  const [active, setActive] = useState(-1);
-
   const data = {
     item1: {
+      id: 1,
       mediaUrl: '/images/stock4.jpg',
       altText: '/images/stock4.jpg',
       sizes: { xs: 2, s: 1, m: 5, l: 0, xl: 0 },
     },
     item2: {
+      id: 2,
       mediaUrl: '/images/stock3.jpg',
       altText: '/images/stock3.jpg',
       sizes: { xs: 2, s: 1, m: 5, l: 0, xl: 0 },
     },
   };
-  const handleClick = (i) => {
-    setActive(i);
+
+  const handleAddToCart = (item) => {
+    // Assuming the product ID is the same as the item ID
+    addItemToCart(item.id, 1);
   };
 
   return (
     <Wrapper>
       {Object.entries(data).map(([key, item]) => (
         <>
-          <MediaWrapper>
-            <Image key={key} src={item.mediaUrl} alt='' fill />
+          {console.log(item.id)}
+          <MediaWrapper key={key + item.id}>
+            <Image src={item.mediaUrl} alt='' fill />
             <ContentWrapper>
               <Text>Select size</Text>
               <Sizes>
-                {Object.entries(item.sizes).map(([key, size]) => (
-                  <button
-                    onClick={() => handleClick(key)}
-                    style={{
-                      backgroundColor:
-                        active === key ? 'rgb(178 174 191)' : 'transparent',
-                      color: active === key ? 'white' : 'black',
-                    }}
-                    key={size + key}
-                  >
-                    {key}
-                  </button>
-                ))}
+                <SizeButtons sizes={item.sizes} />
               </Sizes>
-              <Button>Add to cart</Button>
+              <Button onClick={() => handleAddToCart(item)}>Add to cart</Button>
             </ContentWrapper>
           </MediaWrapper>
         </>

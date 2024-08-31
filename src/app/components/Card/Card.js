@@ -1,6 +1,6 @@
 'use client';
 import styled from 'styled-components';
-import CtaButton from '../Atoms/CtaButton/CtaButton';
+import CtaButton from '../_Atoms/CtaButton/CtaButton';
 import Image from 'next/image';
 
 const Wrapper = styled.div`
