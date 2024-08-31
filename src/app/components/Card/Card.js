@@ -1,7 +1,7 @@
-"use client";
-import styled from "styled-components";
-import CtaButton from "../Atoms/CtaButton/CtaButton";
-import Image from "next/image";
+'use client';
+import styled from 'styled-components';
+import CtaButton from '../Atoms/CtaButton/CtaButton';
+import Image from 'next/image';
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -69,10 +69,10 @@ export default function Card({ buttonText, title, text, mediaUrl, altText }) {
 
   return (
     <Wrapper>
-      {lowercase === "jpg" ? (
+      {lowercase === 'jpg' ? (
         <Image alt={altText} src={mediaUrl} fill />
       ) : (
-        <video src={mediaUrl} autoPlay muted playsInline repeat></video>
+        <video src={mediaUrl} autoPlay muted playsInline loop></video>
       )}
       <ContentWrapper>
         <Content>
