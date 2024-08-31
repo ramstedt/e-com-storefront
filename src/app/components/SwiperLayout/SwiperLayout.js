@@ -1,6 +1,6 @@
 "use client";
 import Card from "../Card/Card";
-import { Navigation, Pagination, Mousewheel, A11y } from "swiper/modules";
+import { Pagination, Mousewheel } from "swiper/modules";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -26,7 +26,7 @@ export default function SwiperLayout() {
           buttonText="shop now"
           title="Test title"
           text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-          imageUrl="/images/stock1.jpg"
+          mediaUrl="/images/stock1.jpg"
         />
       </SwiperSlide>
       <SwiperSlide>
@@ -34,7 +34,7 @@ export default function SwiperLayout() {
           buttonText="shop now"
           title="Test title"
           text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-          imageUrl="/images/stock2.jpg"
+          mediaUrl="/images/stock2.jpg"
         />
       </SwiperSlide>
       <SwiperSlide>
@@ -42,7 +42,15 @@ export default function SwiperLayout() {
           buttonText="shop now"
           title="Test title"
           text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-          imageUrl="/images/stock3.jpg"
+          mediaUrl="/images/stock3.jpg"
+        />
+      </SwiperSlide>
+      <SwiperSlide>
+        <Card
+          buttonText="shop now"
+          title="Test title"
+          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          mediaUrl="/videos/video1.mp4"
         />
       </SwiperSlide>
     </Swiper>

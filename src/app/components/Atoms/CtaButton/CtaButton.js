@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 const Wrapper = styled.button`
   padding: 15px 25px 15px 25px;
-  cursor: pointer;
   min-width: 180px;
   background-color: #ffffff;
   text-transform: uppercase;

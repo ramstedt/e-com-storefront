@@ -9,8 +9,16 @@ const Wrapper = styled.div`
   color: #ffffff;
   position: relative;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   img {
     object-fit: cover;
+  }
+
+  video {
+    position: relative;
+    z-index: 10;
   }
 
   @media (min-width: 768px) {
@@ -20,12 +28,14 @@ const Wrapper = styled.div`
 `;
 
 const ContentWrapper = styled.div`
+  top: 0px;
   display: flex;
   height: 100%;
   align-items: flex-end;
   justify-content: center;
   max-width: 16rem;
-  position: relative;
+  position: absolute;
+  bottom: 20%;
   z-index: 700;
   margin: auto;
   text-align: center;
@@ -49,10 +59,21 @@ const Title = styled.div`
   font-size: 3rem;
 `;
 
-export default function Card({ buttonText, title, text, imageUrl }) {
+export default function Card({ buttonText, title, text, mediaUrl, altText }) {
+  //look for last dot in string
+  const extensionRegex = /(?:\.([^.]+))$/;
+
+  const match = mediaUrl.match(extensionRegex);
+
+  const lowercase = match && match[1].toLowerCase();
+
   return (
     <Wrapper>
-      <Image alt="" src={imageUrl} fill />
+      {lowercase === "jpg" ? (
+        <Image alt={altText} src={mediaUrl} fill />
+      ) : (
+        <video src={mediaUrl} autoPlay muted playsInline repeat></video>
+      )}
       <ContentWrapper>
         <Content>
           <Title>{title}</Title>

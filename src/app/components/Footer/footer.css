@@ -2,11 +2,19 @@ footer {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+footer > * {
+  width: 100%;
+  text-align: center;
 }
 
 .footerSocials {
   display: flex;
   gap: 0.5rem;
+  justify-content: center;
 }
 
 .footerSocials svg {
@@ -17,5 +25,18 @@ footer {
 }
 
 .footerSocials svg:hover {
-  color: black;
+  color: rgb(53, 53, 53);
+}
+
+.footerTitle {
+  text-transform: uppercase;
+  font-weight: 700;
+  color: rgb(53, 53, 53);
+}
+
+.footerLinks .links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem;
+  justify-content: space-evenly;
 }
