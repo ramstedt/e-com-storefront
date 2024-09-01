@@ -1,7 +1,7 @@
-'use client';
-import styled from 'styled-components';
-import CtaButton from '../_Atoms/CtaButton/CtaButton';
-import Image from 'next/image';
+"use client";
+import styled from "styled-components";
+import CtaButton from "../_Atoms/CtaButton/CtaButton";
+import Image from "next/image";
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -33,16 +33,25 @@ const ContentWrapper = styled.div`
   height: 100%;
   align-items: flex-end;
   justify-content: center;
-  max-width: 16rem;
   position: absolute;
-  bottom: 20%;
   z-index: 700;
   margin: auto;
   text-align: center;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 75%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
   @media (min-width: 768px) {
     align-items: center;
+    left: 0;
     justify-content: flex-start;
-    margin-left: 5rem;
+    padding-left: 5rem;
+    background: linear-gradient(
+      270deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.5) 100%
+    );
   }
 `;
 
@@ -50,6 +59,7 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  max-width: 25rem;
 `;
 
 const Text = styled.div``;
@@ -69,7 +79,7 @@ export default function Card({ buttonText, title, text, mediaUrl, altText }) {
 
   return (
     <Wrapper>
-      {lowercase === 'jpg' ? (
+      {lowercase === "jpg" ? (
         <Image alt={altText} src={mediaUrl} fill priority={true} />
       ) : (
         <video src={mediaUrl} autoPlay muted playsInline loop></video>

@@ -38,14 +38,14 @@ export default function SwiperLayout() {
       }}
       modules={[Pagination, Mousewheel, A11y, Autoplay, Navigation]}
       className="mySwiper"
-      direction={windowWidth >= 1024 ? "horizontal" : "vertical"}
+      direction={windowWidth >= 768 ? "horizontal" : "vertical"}
       centeredSlides={true}
       freeMode={true}
       autoplay={{
         delay: 5000,
         disableOnInteraction: false,
       }}
-      navigation={windowWidth >= 1024 ? true : false}
+      navigation={windowWidth >= 768 ? true : false}
     >
       <SwiperSlide>
         <Card
