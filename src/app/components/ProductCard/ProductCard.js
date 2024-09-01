@@ -1,8 +1,8 @@
-'use client';
-import styled from 'styled-components';
-import Image from 'next/image';
-import { addItemToCart } from '@/app/lib/cartHelper';
-import { useState } from 'react';
+"use client";
+import styled from "styled-components";
+import Image from "next/image";
+import { addItemToCart } from "@/app/lib/cartHelper";
+import { useState } from "react";
 
 const Wrapper = styled.div`
   display: flex;
@@ -10,7 +10,12 @@ const Wrapper = styled.div`
   gap: 1rem;
 
   @media (min-width: 768px) {
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (min-width: 1440px) {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
   }
 `;
 
@@ -107,26 +112,110 @@ const MediaWrapper = styled.div`
   }
 `;
 
+const Description = styled.div`
+  width: 300px;
+  margin: 0.5rem auto auto auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
+  div a {
+    transition: color 0.3s;
+  }
+  div a:hover {
+    color: rgb(178 174 191);
+  }
+`;
+
 export default function ProductCard({}) {
   const [selectedId, setSelectedId] = useState(null);
   const [active, setActive] = useState(-1);
   const data = {
     item1: {
       id: 1,
-      mediaUrl: '/images/stock4.jpg',
-      altText: '/images/stock4.jpg',
+      mediaUrl: "/images/products/dress1.png",
+      altText: "/images/products/dress1.png",
       sizes: { xs: 2, s: 1, m: 5, l: 0, xl: 0 },
+      name: "Product Name",
+      description: "lorem ipsum",
+      shortDescription: "lorem",
+      price: "£200",
     },
     item2: {
       id: 2,
-      mediaUrl: '/images/stock3.jpg',
-      altText: '/images/stock3.jpg',
+      mediaUrl: "/images/products/dress2.png",
+      altText: "/images/products/dress2.png",
+      sizes: { xs: 2, s: 1, m: 5, l: 1, xl: 0 },
+      name: "Product Name",
+      description: "lorem ipsum",
+      shortDescription: "lorem",
+      price: "£200",
+    },
+    item3: {
+      id: 3,
+      mediaUrl: "/images/products/dress3.png",
+      altText: "/images/products/dress3.png",
+      sizes: { xs: 2, s: 1, m: 5, l: 8, xl: 7 },
+      name: "Product Name",
+      description: "lorem ipsum",
+      shortDescription: "lorem",
+      price: "£200",
+    },
+    item4: {
+      id: 4,
+      mediaUrl: "/images/products/dress4.png",
+      altText: "/images/products/dress4.png",
+      sizes: { xs: 0, s: 0, m: 5, l: 0, xl: 0 },
+      name: "Product Name",
+      description: "lorem ipsum",
+      shortDescription: "lorem",
+      price: "£200",
+    },
+    item5: {
+      id: 5,
+      mediaUrl: "/images/products/dress5.png",
+      altText: "/images/products/dress5.png",
+      sizes: { xs: 0, s: 1, m: 5, l: 7, xl: 6 },
+      name: "Product Name",
+      description: "lorem ipsum",
+      shortDescription: "lorem",
+      price: "£200",
+    },
+    item6: {
+      id: 6,
+      mediaUrl: "/images/products/sweater1.png",
+      altText: "/images/products/sweater1.png",
+      sizes: { xs: 2, s: 0, m: 5, l: 0, xl: 7 },
+      name: "Product Name",
+      description: "lorem ipsum",
+      shortDescription: "lorem",
+      price: "£200",
+    },
+    item7: {
+      id: 7,
+      mediaUrl: "/images/products/sweater2.png",
+      altText: "/images/products/sweater2.png",
       sizes: { xs: 2, s: 1, m: 5, l: 0, xl: 0 },
+      name: "Product Name",
+      description: "lorem ipsum",
+      shortDescription: "lorem",
+      price: "£200",
+    },
+    item8: {
+      id: 8,
+      mediaUrl: "/images/products/sweater3.png",
+      altText: "/images/products/sweater3.png",
+      sizes: { xs: 2, s: 1, m: 0, l: 9, xl: 0 },
+      name: "Product Name",
+      description: "lorem ipsum",
+      shortDescription: "lorem",
+      price: "£200",
     },
   };
 
   const handleAddToCart = (item) => {
-    const storedData = localStorage.getItem('selectedSize');
+    const storedData = localStorage.getItem("selectedSize");
     const storedId = storedData ? JSON.parse(storedData).id : null;
 
     if (storedId === item.id) {
@@ -142,29 +231,27 @@ export default function ProductCard({}) {
   return (
     <Wrapper>
       {Object.entries(data).map(([key, item]) => (
-        <>
-          <MediaWrapper key={key + item.id}>
-            <Image src={item.mediaUrl} alt='' fill />
+        <div key={`product ${item.id}, ${key}`}>
+          <MediaWrapper>
+            <Image src={item.mediaUrl} alt="alt text" fill />
             <ContentWrapper>
               <Text>Select size</Text>
               <Sizes>
                 {Object.entries(item.sizes).map(([id, stock]) => (
-                  <>
-                    <button
-                      key={id}
-                      onClick={() => handleClick(item.id, id)}
-                      disabled={stock <= 0}
-                      style={{
-                        backgroundColor:
-                          active === `${item.id}, ${id}`
-                            ? 'rgb(178 174 191)'
-                            : 'transparent',
-                        color: active === `${item.id}, ${id}` ? 'white' : null,
-                      }}
-                    >
-                      {id}
-                    </button>
-                  </>
+                  <button
+                    key={` size ${item.id}, ${id}`}
+                    onClick={() => handleClick(item.id, id)}
+                    disabled={stock <= 0}
+                    style={{
+                      backgroundColor:
+                        active === `${item.id}, ${id}`
+                          ? "rgb(178 174 191)"
+                          : "transparent",
+                      color: active === `${item.id}, ${id}` ? "white" : null,
+                    }}
+                  >
+                    {id}
+                  </button>
                 ))}
               </Sizes>
               <Button
@@ -175,7 +262,13 @@ export default function ProductCard({}) {
               </Button>
             </ContentWrapper>
           </MediaWrapper>
-        </>
+          <Description>
+            <div>
+              <a href="">{item.name}</a>
+            </div>
+            <div>{item.price}</div>
+          </Description>
+        </div>
       ))}
     </Wrapper>
   );
