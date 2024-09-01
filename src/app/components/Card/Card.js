@@ -31,6 +31,7 @@ const ContentWrapper = styled.div`
   top: 0px;
   display: flex;
   height: 100%;
+  width: 100%;
   align-items: flex-end;
   justify-content: center;
   position: absolute;
@@ -60,6 +61,10 @@ const Content = styled.div`
   flex-direction: column;
   gap: 0.5rem;
   max-width: 25rem;
+  margin-bottom: 4rem;
+  @media (min-width: 768px) {
+    margin-bottom: 0;
+  }
 `;
 
 const Text = styled.div``;
