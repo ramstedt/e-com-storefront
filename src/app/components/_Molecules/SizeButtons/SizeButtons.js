@@ -1,24 +1,25 @@
 'use client';
 import { useState, useEffect } from 'react';
 
-export default function SizeButton({ sizes }) {
+export default function SizeButtons({ sizes }) {
   const [active, setActive] = useState(-1);
 
-  // Initialize selectedSize with the value from local storage or undefined
   const [selectedSize, setSelectedSize] = useState(() => {
     const storedSize = localStorage.getItem('selectedSize');
-    return storedSize ? JSON.parse(storedSize) : undefined;
+    return storedSize || undefined;
   });
 
   useEffect(() => {
-    // Update local storage whenever selectedSize changes
-    localStorage.setItem('selectedSize', JSON.stringify(selectedSize));
+    if (selectedSize !== undefined) {
+      localStorage.setItem('selectedSize', selectedSize);
+    }
   }, [selectedSize]);
 
   const handleClick = (i) => {
     setActive(i);
     setSelectedSize(i);
   };
+
   return (
     <>
       {Object.entries(sizes).map(([key, size]) => (

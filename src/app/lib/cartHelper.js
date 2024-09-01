@@ -23,31 +23,66 @@ export const getFromCart = () => {
   return {};
 };
 
-export const addItemToCart = (itemId, quantity, size) => {
+export const addItemToCart = (itemId, quantity) => {
   const cart = getFromCart();
-  cart[itemId] = (cart[itemId] || 0) + quantity + size;
-  saveToCart(cart);
-};
-
-export const removeItemFromCart = (itemId) => {
-  const cart = getFromCart();
-  delete cart[itemId];
-  saveToCart(cart);
-};
-
-export const updateCartItemQuantity = (itemId, newQuantity) => {
-  const cart = getFromCart();
-  if (newQuantity > 0) {
-    cart[itemId] = newQuantity;
-  } else {
-    delete cart[itemId];
+  const selectedSize = window.localStorage.getItem('selectedSize');
+  console.log(selectedSize);
+  if (!selectedSize) {
+    console.error('Selected size not found in localStorage');
+    return;
   }
+
+  if (!cart[itemId]) {
+    cart[itemId] = [];
+  }
+
+  const existingItem = cart[itemId].find((item) => item.size === selectedSize);
+
+  if (existingItem) {
+    existingItem.quantity += quantity;
+  } else {
+    cart[itemId].push({ size: selectedSize, quantity });
+  }
+
   saveToCart(cart);
+};
+
+export const removeItemFromCart = (itemId, size) => {
+  const cart = getFromCart();
+  if (cart[itemId]) {
+    cart[itemId] = cart[itemId].filter((item) => item.size !== size);
+    if (cart[itemId].length === 0) {
+      delete cart[itemId];
+    }
+    saveToCart(cart);
+  }
+};
+
+export const updateCartItemQuantity = (itemId, size, newQuantity) => {
+  const cart = getFromCart();
+  if (cart[itemId]) {
+    const item = cart[itemId].find((item) => item.size === size);
+    if (item) {
+      if (newQuantity > 0) {
+        item.quantity = newQuantity;
+      } else {
+        cart[itemId] = cart[itemId].filter((item) => item.size !== size);
+        if (cart[itemId].length === 0) {
+          delete cart[itemId];
+        }
+      }
+      saveToCart(cart);
+    }
+  }
 };
 
 export const getCartTotalCount = () => {
   const cart = getFromCart();
-  return Object.values(cart).reduce((sum, quantity) => sum + quantity, 0);
+  return Object.values(cart).reduce(
+    (sum, items) =>
+      sum + items.reduce((itemSum, item) => itemSum + item.quantity, 0),
+    0
+  );
 };
 
 export const useCart = () => {
@@ -57,13 +92,13 @@ export const useCart = () => {
     setCart(getFromCart());
   }, []);
 
-  const addOrUpdateItem = (itemId, quantity) => {
-    updateCartItemQuantity(itemId, quantity);
+  const addOrUpdateItem = (itemId, size, quantity) => {
+    updateCartItemQuantity(itemId, size, quantity);
     setCart(getFromCart());
   };
 
-  const removeItem = (itemId) => {
-    removeItemFromCart(itemId);
+  const removeItem = (itemId, size) => {
+    removeItemFromCart(itemId, size);
     setCart(getFromCart());
   };
 
