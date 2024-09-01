@@ -1,60 +1,85 @@
-'use client';
-import Card from '../Card/Card';
-import { Pagination, Mousewheel } from 'swiper/modules';
-
-import { Swiper, SwiperSlide } from 'swiper/react';
+"use client";
+import Card from "../Card/Card";
+import {
+  Pagination,
+  Mousewheel,
+  A11y,
+  Autoplay,
+  Navigation,
+} from "swiper/modules";
+import { useState, useEffect } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
-import './swiperlayout.css';
+import "swiper/css";
+import "swiper/css/bundle";
+import "./swiperlayout.css";
+import "swiper/css/autoplay";
+import "swiper/css/navigation";
+
 export default function SwiperLayout() {
+  const [windowWidth, setWindowWidth] = useState(0);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <Swiper
       pagination={{
         clickable: true,
       }}
-      modules={[Pagination, Mousewheel]}
-      className='mySwiper'
-      direction='vertical'
-      mousewheel
+      modules={[Pagination, Mousewheel, A11y, Autoplay, Navigation]}
+      className="mySwiper"
+      direction={windowWidth >= 1024 ? "horizontal" : "vertical"}
       centeredSlides={true}
+      freeMode={true}
+      autoplay={{
+        delay: 5000,
+        disableOnInteraction: false,
+      }}
+      navigation={windowWidth >= 1024 ? true : false}
     >
       <SwiperSlide>
         <Card
-          buttonText='shop now'
-          title='Test title'
-          text='Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-          mediaUrl='/images/stock1.jpg'
+          buttonText="shop now"
+          title="Test title"
+          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          mediaUrl="/images/stock1.jpg"
         />
       </SwiperSlide>
       <SwiperSlide>
         <Card
-          buttonText='shop now'
-          title='Test title'
-          text='Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-          mediaUrl='/images/stock2.jpg'
-          altText='alt text'
+          buttonText="shop now"
+          title="Test title"
+          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          mediaUrl="/images/stock2.jpg"
+          altText="alt text"
         />
       </SwiperSlide>
       <SwiperSlide>
         <Card
-          buttonText='shop now'
-          title='Test title'
-          text='Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-          mediaUrl='/images/stock3.jpg'
-          altText='alt text'
+          buttonText="shop now"
+          title="Test title"
+          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          mediaUrl="/images/stock3.jpg"
+          altText="alt text"
         />
       </SwiperSlide>
       <SwiperSlide>
         <Card
-          buttonText='shop now'
-          title='Test title'
-          text='Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-          mediaUrl='/videos/video1.mp4'
-          altText='alt text'
+          buttonText="shop now"
+          title="Test title"
+          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          mediaUrl="/videos/video1.mp4"
+          altText="alt text"
         />
       </SwiperSlide>
     </Swiper>
