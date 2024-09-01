@@ -43,7 +43,7 @@ export default function SwiperLayout() {
       freeMode={true}
       autoplay={{
         delay: 5000,
-        disableOnInteraction: false,
+        disableOnInteraction: true,
       }}
       navigation={windowWidth >= 768 ? true : false}
     >
