@@ -1,8 +1,8 @@
 'use client';
 import styled from 'styled-components';
 import Image from 'next/image';
-import SizeButtons from '../_Molecules/SizeButtons/SizeButtons';
 import { addItemToCart } from '@/app/lib/cartHelper';
+import { useState } from 'react';
 
 const Wrapper = styled.div`
   display: flex;
@@ -64,6 +64,13 @@ const Sizes = styled.div`
     &:hover {
       background: rgb(178, 174, 191);
     }
+    &:disabled,
+    &[disabled] {
+      background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' preserveAspectRatio='none' viewBox='0 0 100 100'><path d='M100 0 L0 100 ' stroke='black' stroke-width='1'/><path d='M0 0 L100 100 ' stroke='black' stroke-width='1'/></svg>");
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 50% 50%, auto;
+    }
   }
 `;
 
@@ -101,6 +108,8 @@ const MediaWrapper = styled.div`
 `;
 
 export default function ProductCard({}) {
+  const [selectedId, setSelectedId] = useState(null);
+  const [active, setActive] = useState(-1);
   const data = {
     item1: {
       id: 1,
@@ -117,23 +126,53 @@ export default function ProductCard({}) {
   };
 
   const handleAddToCart = (item) => {
-    // Assuming the product ID is the same as the item ID
-    addItemToCart(item.id, 1);
+    const storedData = localStorage.getItem('selectedSize');
+    const storedId = storedData ? JSON.parse(storedData).id : null;
+
+    if (storedId === item.id) {
+      addItemToCart(item.id, 1);
+    }
+  };
+
+  const handleClick = (id, size) => {
+    setActive(`${id}, ${size}`);
+    setSelectedId(id);
   };
 
   return (
     <Wrapper>
       {Object.entries(data).map(([key, item]) => (
         <>
-          {console.log(item.id)}
           <MediaWrapper key={key + item.id}>
             <Image src={item.mediaUrl} alt='' fill />
             <ContentWrapper>
               <Text>Select size</Text>
               <Sizes>
-                <SizeButtons sizes={item.sizes} />
+                {Object.entries(item.sizes).map(([id, stock]) => (
+                  <>
+                    <button
+                      key={id}
+                      onClick={() => handleClick(item.id, id)}
+                      disabled={stock <= 0}
+                      style={{
+                        backgroundColor:
+                          active === `${item.id}, ${id}`
+                            ? 'rgb(178 174 191)'
+                            : 'transparent',
+                        color: active === `${item.id}, ${id}` ? 'white' : null,
+                      }}
+                    >
+                      {id}
+                    </button>
+                  </>
+                ))}
               </Sizes>
-              <Button onClick={() => handleAddToCart(item)}>Add to cart</Button>
+              <Button
+                onClick={() => handleAddToCart(item)}
+                disabled={item.id !== selectedId}
+              >
+                Add to cart
+              </Button>
             </ContentWrapper>
           </MediaWrapper>
         </>
