@@ -46,11 +46,26 @@ const NavLinks = styled.div`
 `;
 const ModalWrapper = styled.div`
   position: fixed;
-  top: 50px;
+  top: 40px;
   right: 0;
   width: 100%;
   background: white;
   z-index: 1000;
+
+  @media screen and (min-width: 1024px) {
+    width: 40%;
+  }
+`;
+
+const BasketWrapper = styled.div`
+  position: relative;
+  display: inline-block;
+
+  &:hover {
+    ${ModalWrapper} {
+      display: block;
+    }
+  }
 `;
 export default function Navbar({ logo }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -73,11 +88,9 @@ export default function Navbar({ logo }) {
         <AiOutlineGlobal />
         <IoSearchOutline />
         <IoPersonOutline />
-
-        <div
+        <BasketWrapper
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          style={{ position: "relative" }}
         >
           <IoBagOutline />
           {isModalVisible && (
@@ -85,7 +98,7 @@ export default function Navbar({ logo }) {
               <BasketModal />
             </ModalWrapper>
           )}
-        </div>
+        </BasketWrapper>
 
         <RxHamburgerMenu />
       </NavLinks>

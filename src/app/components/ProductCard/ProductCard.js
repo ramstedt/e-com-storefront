@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 
   @media (min-width: 768px) {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
   @media (min-width: 1440px) {
     display: grid;
