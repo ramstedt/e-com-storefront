@@ -1,0 +1,82 @@
+{
+  "item1": {
+    "id": 1,
+    "mediaUrl": "/images/products/dress1.png",
+    "altText": "Dress 1",
+    "sizes": { "xs": 2, "s": 1, "m": 5, "l": 0, "xl": 0 },
+    "name": "Product Name",
+    "description": "lorem ipsum",
+    "shortDescription": "lorem",
+    "price": 200
+  },
+  "item2": {
+    "id": 2,
+    "mediaUrl": "/images/products/dress2.png",
+    "altText": "Dress 2",
+    "sizes": { "xs": 2, "s": 1, "m": 5, "l": 1, "xl": 0 },
+    "name": "Product Name",
+    "description": "lorem ipsum",
+    "shortDescription": "lorem",
+    "price": 200
+  },
+  "item3": {
+    "id": 3,
+    "mediaUrl": "/images/products/dress3.png",
+    "altText": "Dress 3",
+    "sizes": { "xs": 2, "s": 1, "m": 5, "l": 8, "xl": 7 },
+    "name": "Product Name",
+    "description": "lorem ipsum",
+    "shortDescription": "lorem",
+    "price": 200
+  },
+  "item4": {
+    "id": 4,
+    "mediaUrl": "/images/products/dress4.png",
+    "altText": "Dress 4",
+    "sizes": { "xs": 0, "s": 0, "m": 5, "l": 0, "xl": 0 },
+    "name": "Product Name",
+    "description": "lorem ipsum",
+    "shortDescription": "lorem",
+    "price": 200
+  },
+  "item5": {
+    "id": 5,
+    "mediaUrl": "/images/products/dress5.png",
+    "altText": "Dress 5",
+    "sizes": { "xs": 0, "s": 1, "m": 5, "l": 7, "xl": 6 },
+    "name": "Product Name",
+    "description": "lorem ipsum",
+    "shortDescription": "lorem",
+    "price": 200
+  },
+  "item6": {
+    "id": 6,
+    "mediaUrl": "/images/products/sweater1.png",
+    "altText": "Sweater 1",
+    "sizes": { "xs": 2, "s": 0, "m": 5, "l": 0, "xl": 7 },
+    "name": "Product Name",
+    "description": "lorem ipsum",
+    "shortDescription": "lorem",
+    "price": 200
+  },
+  "item7": {
+    "id": 7,
+    "mediaUrl": "/images/products/sweater2.png",
+    "altText": "Sweater 2",
+    "sizes": { "xs": 2, "s": 1, "m": 5, "l": 0, "xl": 0 },
+    "name": "Product Name",
+    "description": "lorem ipsum",
+    "shortDescription": "lorem",
+    "price": 200
+  },
+  "item8": {
+    "id": 8,
+    "mediaUrl": "/images/products/sweater3.png",
+    "altText": "Sweater 3",
+    "sizes": { "xs": 2, "s": 1, "m": 0, "l": 9, "xl": 0 },
+    "name": "Product Name",
+    "description": "lorem ipsum",
+    "shortDescription": "lorem",
+    "price": 200
+  }
+}

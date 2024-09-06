@@ -85,7 +85,13 @@ export default function Card({ buttonText, title, text, mediaUrl, altText }) {
   return (
     <Wrapper>
       {lowercase === "jpg" ? (
-        <Image alt={altText} src={mediaUrl} fill priority={true} />
+        <Image
+          alt={altText}
+          src={mediaUrl}
+          fill
+          priority={true}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
       ) : (
         <video src={mediaUrl} autoPlay muted playsInline loop></video>
       )}

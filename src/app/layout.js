@@ -17,7 +17,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={karla.className}>
-        <Navbar logo="/images/logo.webp" />
+        <Navbar
+          logo="/images/logo.webp"
+          itemName="{itemName}"
+          price="{price}"
+          size="{size}"
+          quantity="{quantity}"
+          subtotal="{subtotal}"
+        />
         {children}
         <Footer />
       </body>

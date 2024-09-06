@@ -8,8 +8,8 @@ import { AiOutlineGlobal } from "react-icons/ai";
 import { RxHamburgerMenu } from "react-icons/rx";
 import Link from "next/link";
 import Image from "next/image";
-import BasketModal from "../BasketModal/BasketModal"; // Import the BasketModal component
-import { useState } from "react"; // Import useState hook
+import BasketModal from "../BasketModal/BasketModal";
+import { useState } from "react";
 import { Quicksand } from "next/font/google";
 import styled from "styled-components";
 
@@ -67,7 +67,14 @@ const BasketWrapper = styled.div`
     }
   }
 `;
-export default function Navbar({ logo }) {
+export default function Navbar({
+  logo,
+  itemName,
+  price,
+  size,
+  quantity,
+  subtotal,
+}) {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleMouseEnter = () => {
@@ -76,6 +83,10 @@ export default function Navbar({ logo }) {
 
   const handleMouseLeave = () => {
     setIsModalVisible(false);
+  };
+
+  const handleBagClick = () => {
+    setIsModalVisible((prev) => !prev);
   };
 
   return (
@@ -92,10 +103,16 @@ export default function Navbar({ logo }) {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          <IoBagOutline />
+          <IoBagOutline onClick={handleBagClick} />
           {isModalVisible && (
             <ModalWrapper>
-              <BasketModal />
+              <BasketModal
+                itemName={itemName}
+                price={price}
+                size={size}
+                quantity={quantity}
+                subtotal={subtotal}
+              />
             </ModalWrapper>
           )}
         </BasketWrapper>

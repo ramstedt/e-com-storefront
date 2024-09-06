@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   //display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: white; /* Ensure background color */
+  background-color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: calc(100% - 2rem);
 
@@ -80,7 +80,13 @@ const PaymentLink = styled(Link)`
   }
 `;
 
-export default function BasketModal() {
+export default function BasketModal({
+  itemName,
+  price,
+  size,
+  quantity,
+  subtotal,
+}) {
   return (
     <Wrapper>
       <hr />
@@ -88,23 +94,29 @@ export default function BasketModal() {
       <hr />
       <ItemWrapper>
         <ImageWrapper>
-          <Image src="/images/products/dress1.png" alt="Item" fill />
+          <Image
+            src="/images/products/dress1.png"
+            alt="Item"
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority={false}
+          />
         </ImageWrapper>
         <DetailsWrapper>
           <div>
-            <div>Item name</div>
-            <div>£350</div>
+            <div>{itemName}</div>
+            <div>£{price}</div>
           </div>
           <div>
-            <div>Size: M</div>
-            <div>Quantity: 1</div>
+            <div>Size: {size}</div>
+            <div>Quantity: {quantity}</div>
           </div>
           <Link href="/">Remove</Link>
         </DetailsWrapper>
       </ItemWrapper>
       <Subtotal>
         <div>Subtotal</div>
-        <div>£800</div>
+        <div>£{subtotal}</div>
       </Subtotal>
       <PaymentLink href="/checkout">proceed to checkout</PaymentLink>
     </Wrapper>
