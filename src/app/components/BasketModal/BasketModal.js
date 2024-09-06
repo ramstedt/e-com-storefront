@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
+import { removeItemFromCart } from "@/app/lib/cartHelper";
 
 const Wrapper = styled.div`
   padding: 1rem;
@@ -85,44 +86,58 @@ export default function BasketModal({ cartItems }) {
     (acc, item) => acc + item.price * item.quantity,
     0
   );
+
+  const handleRemove = (event, itemId, size) => {
+    event.preventDefault();
+    removeItemFromCart(itemId, size);
+  };
+
   return (
     <Wrapper>
       <hr />
       <h2>Your shopping bag</h2>
       <hr />
       {cartItems.length > 0 ? (
-        cartItems.map((item, index) => (
-          <ItemWrapper key={index}>
-            <ImageWrapper>
-              <Image
-                src={item.mediaUrl}
-                alt={item.altText}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                priority={false}
-              />
-            </ImageWrapper>
-            <DetailsWrapper>
-              <div>
-                <div>{item.name}</div>
-                <div>£{item.price}</div>
-              </div>
-              <div>
-                <div>Size: {item.size}</div>
-                <div>Quantity: {item.quantity}</div>
-              </div>
-              <Link href="/">Remove</Link>
-            </DetailsWrapper>
-          </ItemWrapper>
-        ))
+        <>
+          {cartItems.map((item, index) => (
+            <ItemWrapper key={index}>
+              <ImageWrapper>
+                <Image
+                  src={item.mediaUrl}
+                  alt={item.altText}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  priority={false}
+                />
+              </ImageWrapper>
+              <DetailsWrapper>
+                <div>
+                  <div>{item.name}</div>
+                  <div>£{item.price}</div>
+                </div>
+                <div>
+                  <div>Size: {item.size}</div>
+                  <div>Quantity: {item.quantity}</div>
+                </div>
+                <Link
+                  href="/"
+                  onClick={(event) => handleRemove(event, item.id, item.size)}
+                >
+                  Remove
+                </Link>
+              </DetailsWrapper>
+            </ItemWrapper>
+          ))}
+
+          <Subtotal>
+            <div>Subtotal</div>
+            <div>£{subtotal}</div>
+          </Subtotal>
+          <PaymentLink href="/checkout">Proceed to checkout</PaymentLink>
+        </>
       ) : (
         <p>Your cart is empty.</p>
       )}
-      <Subtotal>
-        <div>Subtotal</div>
-        <div>£{subtotal}</div>
-      </Subtotal>
-      <PaymentLink href="/checkout">Proceed to checkout</PaymentLink>
     </Wrapper>
   );
 }

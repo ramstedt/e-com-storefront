@@ -25,14 +25,11 @@ export const getFromCart = () => {
 };
 
 export const addItemToCart = (itemId, quantity, size) => {
-  //working
   const cart = getFromCart();
-
   if (!size) {
     console.error("Size not provided");
     return;
   }
-
   if (!cart[itemId]) {
     cart[itemId] = [];
   }
@@ -50,12 +47,23 @@ export const addItemToCart = (itemId, quantity, size) => {
 
 export const removeItemFromCart = (itemId, size) => {
   const cart = getFromCart();
+
   if (cart[itemId]) {
-    cart[itemId] = cart[itemId].filter((item) => item.size !== size);
-    if (cart[itemId].length === 0) {
-      delete cart[itemId];
+    const itemIndex = cart[itemId].findIndex((item) => item.size === size);
+
+    if (itemIndex !== -1) {
+      if (cart[itemId][itemIndex].quantity === 1) {
+        cart[itemId] = cart[itemId].filter((item) => item.size !== size);
+      } else {
+        cart[itemId][itemIndex].quantity -= 1;
+      }
+
+      if (cart[itemId].length === 0) {
+        delete cart[itemId];
+      }
+
+      saveToCart(cart);
     }
-    saveToCart(cart);
   }
 };
 
