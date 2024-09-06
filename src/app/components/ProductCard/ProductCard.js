@@ -34,6 +34,12 @@ const Button = styled.button`
   &:hover {
     background: rgb(201 195 219);
   }
+
+  &:disabled:hover,
+  &[disabled]:hover {
+    background: rgb(178 174 191);
+    cursor: initial;
+  }
 `;
 
 const Sizes = styled.div`
@@ -114,9 +120,15 @@ const Description = styled.div`
 
 export default function ProductCard({ item }) {
   const [active, setActive] = useState(-1);
+  const [buttonText, setButtonText] = useState("Add to cart");
 
   const handleAddToCart = (item, size) => {
     addItemToCart(item.id, 1, size);
+    setButtonText("Added");
+
+    setTimeout(() => {
+      setButtonText("Add to cart");
+    }, 2000);
   };
 
   const handleClick = (id, size) => {
@@ -158,7 +170,7 @@ export default function ProductCard({ item }) {
             }}
             disabled={active === -1}
           >
-            Add to cart
+            {buttonText}
           </Button>
         </ContentWrapper>
       </MediaWrapper>
