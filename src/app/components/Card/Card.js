@@ -74,7 +74,14 @@ const Title = styled.div`
   font-size: 3rem;
 `;
 
-export default function Card({ buttonText, title, text, mediaUrl, altText }) {
+export default function Card({
+  buttonText,
+  title,
+  text,
+  mediaUrl,
+  altText,
+  url,
+}) {
   //look for last dot in string
   const extensionRegex = /(?:\.([^.]+))$/;
 
@@ -100,7 +107,7 @@ export default function Card({ buttonText, title, text, mediaUrl, altText }) {
           <Title>{title}</Title>
           <Text>{text}</Text>
           <div>
-            <CtaButton buttonText={buttonText} />
+            <CtaButton buttonText={buttonText} url={url} />
           </div>
         </Content>
       </ContentWrapper>

@@ -50,36 +50,40 @@ export default function SwiperLayout() {
       <SwiperSlide>
         <Card
           buttonText="shop now"
-          title="Test title"
+          title="Summer Sale"
           text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
           mediaUrl="/images/stock1.jpg"
+          url="/catalogue"
         />
       </SwiperSlide>
       <SwiperSlide>
         <Card
           buttonText="shop now"
-          title="Test title"
+          title="Autumn News"
           text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
           mediaUrl="/images/stock2.jpg"
           altText="alt text"
+          url="/catalogue"
         />
       </SwiperSlide>
       <SwiperSlide>
         <Card
           buttonText="shop now"
-          title="Test title"
+          title="Elevated Essentials"
           text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
           mediaUrl="/images/stock3.jpg"
           altText="alt text"
+          url="/catalogue"
         />
       </SwiperSlide>
       <SwiperSlide>
         <Card
           buttonText="shop now"
-          title="Test title"
+          title="Loom: Suistanable Fashion"
           text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
           mediaUrl="/videos/video1.mp4"
           altText="alt text"
+          url="/catalogue"
         />
       </SwiperSlide>
     </Swiper>
