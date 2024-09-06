@@ -9,7 +9,7 @@ const karla = Karla({
 });
 
 export const metadata = {
-  title: "E-commerce Storefront",
+  title: "Loom",
   description: "https://github.com/ramstedt/e-com-storefront",
 };
 

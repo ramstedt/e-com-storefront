@@ -1,17 +1,21 @@
-"use client";
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
 
 const Wrapper = styled.div`
   padding: 1rem;
-  display: flex;
+  //display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: white; /* Ensure background color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: calc(100% - 2rem);
 
   h2 {
     text-transform: uppercase;
+    text-align: center;
   }
+
   hr {
     width: 100%;
     background-color: lightgrey;
@@ -31,8 +35,8 @@ const ItemWrapper = styled.div`
 `;
 
 const ImageWrapper = styled.div`
-  height: 150px;
-  width: 150px;
+  height: 100px;
+  width: 100px;
   position: relative;
 `;
 
@@ -58,15 +62,16 @@ const Subtotal = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  margin: 1rem 0 1rem 0;
 `;
 
 const PaymentLink = styled(Link)`
+  display: flex;
   background: black;
   color: white;
   padding: 0.7rem;
-  width: 100%;
-  max-width: 400px;
-  text-align: center;
+  width: calc(100% - 2rem);
+  justify-content: center;
   border: 1px solid black;
   transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
   &:hover {
@@ -75,7 +80,7 @@ const PaymentLink = styled(Link)`
   }
 `;
 
-export default function BasketModal({}) {
+export default function BasketModal() {
   return (
     <Wrapper>
       <hr />
@@ -83,7 +88,7 @@ export default function BasketModal({}) {
       <hr />
       <ItemWrapper>
         <ImageWrapper>
-          <Image src="/images/products/dress1.png" alt="hej" fill />
+          <Image src="/images/products/dress1.png" alt="Item" fill />
         </ImageWrapper>
         <DetailsWrapper>
           <div>
@@ -101,7 +106,7 @@ export default function BasketModal({}) {
         <div>Subtotal</div>
         <div>£800</div>
       </Subtotal>
-      <PaymentLink href="">proceed to checkout</PaymentLink>
+      <PaymentLink href="/checkout">proceed to checkout</PaymentLink>
     </Wrapper>
   );
 }

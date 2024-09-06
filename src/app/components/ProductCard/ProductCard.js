@@ -27,7 +27,7 @@ const ContentWrapper = styled.div`
   align-items: flex-end;
   justify-content: flex-end;
   position: absolute;
-  z-index: 700;
+  z-index: 100;
   margin: auto;
   text-align: center;
   width: 100%;
