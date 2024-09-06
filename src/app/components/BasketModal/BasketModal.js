@@ -80,45 +80,49 @@ const PaymentLink = styled(Link)`
   }
 `;
 
-export default function BasketModal({
-  itemName,
-  price,
-  size,
-  quantity,
-  subtotal,
-}) {
+export default function BasketModal({ cartItems }) {
+  const subtotal = cartItems.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0
+  );
   return (
     <Wrapper>
       <hr />
       <h2>Your shopping bag</h2>
       <hr />
-      <ItemWrapper>
-        <ImageWrapper>
-          <Image
-            src="/images/products/dress1.png"
-            alt="Item"
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            priority={false}
-          />
-        </ImageWrapper>
-        <DetailsWrapper>
-          <div>
-            <div>{itemName}</div>
-            <div>£{price}</div>
-          </div>
-          <div>
-            <div>Size: {size}</div>
-            <div>Quantity: {quantity}</div>
-          </div>
-          <Link href="/">Remove</Link>
-        </DetailsWrapper>
-      </ItemWrapper>
+      {cartItems.length > 0 ? (
+        cartItems.map((item, index) => (
+          <ItemWrapper key={index}>
+            <ImageWrapper>
+              <Image
+                src={item.mediaUrl}
+                alt={item.altText}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                priority={false}
+              />
+            </ImageWrapper>
+            <DetailsWrapper>
+              <div>
+                <div>{item.name}</div>
+                <div>£{item.price}</div>
+              </div>
+              <div>
+                <div>Size: {item.size}</div>
+                <div>Quantity: {item.quantity}</div>
+              </div>
+              <Link href="/">Remove</Link>
+            </DetailsWrapper>
+          </ItemWrapper>
+        ))
+      ) : (
+        <p>Your cart is empty.</p>
+      )}
       <Subtotal>
         <div>Subtotal</div>
         <div>£{subtotal}</div>
       </Subtotal>
-      <PaymentLink href="/checkout">proceed to checkout</PaymentLink>
+      <PaymentLink href="/checkout">Proceed to checkout</PaymentLink>
     </Wrapper>
   );
 }

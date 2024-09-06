@@ -1,8 +1,8 @@
 "use client";
 import styled from "styled-components";
 import Image from "next/image";
-import { addItemToCart } from "@/app/lib/cartHelper";
 import { useState } from "react";
+import { addItemToCart } from "@/app/lib/cartHelper";
 
 const Wrapper = styled.div`
   display: flex;
@@ -35,10 +35,8 @@ const ContentWrapper = styled.div`
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-
-  @media (min-width: 768px) {
-  }
 `;
+
 const Button = styled.button`
   width: 100%;
   background: rgba(255 255 255 0.5);
@@ -128,148 +126,60 @@ const Description = styled.div`
   }
 `;
 
-export default function ProductCard({}) {
-  const [selectedId, setSelectedId] = useState(null);
+export default function ProductCard({ item }) {
   const [active, setActive] = useState(-1);
-  const data = {
-    item1: {
-      id: 1,
-      mediaUrl: "/images/products/dress1.png",
-      altText: "/images/products/dress1.png",
-      sizes: { xs: 2, s: 1, m: 5, l: 0, xl: 0 },
-      name: "Product Name",
-      description: "lorem ipsum",
-      shortDescription: "lorem",
-      price: "£200",
-    },
-    item2: {
-      id: 2,
-      mediaUrl: "/images/products/dress2.png",
-      altText: "/images/products/dress2.png",
-      sizes: { xs: 2, s: 1, m: 5, l: 1, xl: 0 },
-      name: "Product Name",
-      description: "lorem ipsum",
-      shortDescription: "lorem",
-      price: "£200",
-    },
-    item3: {
-      id: 3,
-      mediaUrl: "/images/products/dress3.png",
-      altText: "/images/products/dress3.png",
-      sizes: { xs: 2, s: 1, m: 5, l: 8, xl: 7 },
-      name: "Product Name",
-      description: "lorem ipsum",
-      shortDescription: "lorem",
-      price: "£200",
-    },
-    item4: {
-      id: 4,
-      mediaUrl: "/images/products/dress4.png",
-      altText: "/images/products/dress4.png",
-      sizes: { xs: 0, s: 0, m: 5, l: 0, xl: 0 },
-      name: "Product Name",
-      description: "lorem ipsum",
-      shortDescription: "lorem",
-      price: "£200",
-    },
-    item5: {
-      id: 5,
-      mediaUrl: "/images/products/dress5.png",
-      altText: "/images/products/dress5.png",
-      sizes: { xs: 0, s: 1, m: 5, l: 7, xl: 6 },
-      name: "Product Name",
-      description: "lorem ipsum",
-      shortDescription: "lorem",
-      price: "£200",
-    },
-    item6: {
-      id: 6,
-      mediaUrl: "/images/products/sweater1.png",
-      altText: "/images/products/sweater1.png",
-      sizes: { xs: 2, s: 0, m: 5, l: 0, xl: 7 },
-      name: "Product Name",
-      description: "lorem ipsum",
-      shortDescription: "lorem",
-      price: "£200",
-    },
-    item7: {
-      id: 7,
-      mediaUrl: "/images/products/sweater2.png",
-      altText: "/images/products/sweater2.png",
-      sizes: { xs: 2, s: 1, m: 5, l: 0, xl: 0 },
-      name: "Product Name",
-      description: "lorem ipsum",
-      shortDescription: "lorem",
-      price: "£200",
-    },
-    item8: {
-      id: 8,
-      mediaUrl: "/images/products/sweater3.png",
-      altText: "/images/products/sweater3.png",
-      sizes: { xs: 2, s: 1, m: 0, l: 9, xl: 0 },
-      name: "Product Name",
-      description: "lorem ipsum",
-      shortDescription: "lorem",
-      price: "£200",
-    },
-  };
 
-  const handleAddToCart = (item) => {
-    const storedData = localStorage.getItem("selectedSize");
-    const storedId = storedData ? JSON.parse(storedData).id : null;
-
-    if (storedId === item.id) {
-      addItemToCart(item.id, 1);
-    }
+  const handleAddToCart = (item, size) => {
+    addItemToCart(item.id, 1, size);
   };
 
   const handleClick = (id, size) => {
     setActive(`${id}, ${size}`);
-    setSelectedId(id);
   };
 
   return (
-    <Wrapper>
-      {Object.entries(data).map(([key, item]) => (
-        <div key={`product ${item.id}, ${key}`}>
-          <MediaWrapper>
-            <Image src={item.mediaUrl} alt="alt text" fill />
-            <ContentWrapper>
-              <Text>Select size</Text>
-              <Sizes>
-                {Object.entries(item.sizes).map(([id, stock]) => (
-                  <button
-                    key={` size ${item.id}, ${id}`}
-                    onClick={() => handleClick(item.id, id)}
-                    disabled={stock <= 0}
-                    style={{
-                      backgroundColor:
-                        active === `${item.id}, ${id}`
-                          ? "rgb(178 174 191)"
-                          : "transparent",
-                      color: active === `${item.id}, ${id}` ? "white" : null,
-                    }}
-                  >
-                    {id}
-                  </button>
-                ))}
-              </Sizes>
-              <Button
-                onClick={() => handleAddToCart(item)}
-                disabled={item.id !== selectedId}
+    <div>
+      <MediaWrapper>
+        <Image src={item.mediaUrl} alt={item.altText} fill />
+        <ContentWrapper>
+          <Text>Select size</Text>
+          <Sizes>
+            {Object.entries(item.sizes).map(([size, stock]) => (
+              <button
+                key={`size-${item.id}-${size}`}
+                onClick={() => handleClick(item.id, size)}
+                disabled={stock <= 0}
+                style={{
+                  backgroundColor:
+                    active === `${item.id}, ${size}`
+                      ? "rgb(178, 174, 191)"
+                      : "transparent",
+                  color: active === `${item.id}, ${size}` ? "white" : null,
+                }}
               >
-                Add to cart
-              </Button>
-            </ContentWrapper>
-          </MediaWrapper>
-          <Description>
-            <div>
-              <a href="">{item.name}</a>
-            </div>
-            <div>{item.price}</div>
-          </Description>
+                {size}
+              </button>
+            ))}
+          </Sizes>
+          <Button
+            onClick={() => {
+              const selectedSize = active.split(", ")[1];
+              if (selectedSize) {
+                handleAddToCart(item, selectedSize);
+              }
+            }}
+            disabled={active === -1}
+          >
+            Add to cart
+          </Button>
+        </ContentWrapper>
+      </MediaWrapper>
+      <Description>
+        <div>
+          <a href="">{item.name}</a>
         </div>
-      ))}
-    </Wrapper>
+        <div>{item.price}</div>
+      </Description>
+    </div>
   );
 }

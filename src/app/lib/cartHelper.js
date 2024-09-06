@@ -1,34 +1,35 @@
-'use client';
-import { useState, useEffect } from 'react';
+"use client";
+import { useState, useEffect } from "react";
 
 export const saveToCart = (cart) => {
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     try {
-      window.localStorage.setItem('cart', JSON.stringify(cart));
+      window.localStorage.setItem("cart", JSON.stringify(cart));
+      window.dispatchEvent(new Event("storage"));
     } catch (error) {
-      console.error('Error saving cart to localStorage:', error);
+      console.error("Error saving cart to localStorage:", error);
     }
   }
 };
 
 export const getFromCart = () => {
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     try {
-      return JSON.parse(window.localStorage.getItem('cart')) || {};
+      return JSON.parse(window.localStorage.getItem("cart")) || {};
     } catch (error) {
-      console.error('Error getting cart from localStorage:', error);
+      console.error("Error getting cart from localStorage:", error);
       return {};
     }
   }
   return {};
 };
 
-export const addItemToCart = (itemId, quantity) => {
+export const addItemToCart = (itemId, quantity, size) => {
+  //working
   const cart = getFromCart();
-  const selectedSize = window.localStorage.getItem('selectedSize');
-  console.log(selectedSize);
-  if (!selectedSize) {
-    console.error('Selected size not found in localStorage');
+
+  if (!size) {
+    console.error("Size not provided");
     return;
   }
 
@@ -36,12 +37,12 @@ export const addItemToCart = (itemId, quantity) => {
     cart[itemId] = [];
   }
 
-  const existingItem = cart[itemId].find((item) => item.size === selectedSize);
+  const existingItem = cart[itemId].find((item) => item.size === size);
 
   if (existingItem) {
     existingItem.quantity += quantity;
   } else {
-    cart[itemId].push({ size: selectedSize, quantity });
+    cart[itemId].push({ size, quantity });
   }
 
   saveToCart(cart);
@@ -114,4 +115,9 @@ export const useCart = () => {
     clearCart,
     totalCount: getCartTotalCount(),
   };
+};
+
+export const getCartFromLocalStorage = () => {
+  const cartData = localStorage.getItem("cart");
+  return cartData ? JSON.parse(cartData) : {};
 };

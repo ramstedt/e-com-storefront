@@ -46,10 +46,9 @@ const NavLinks = styled.div`
 `;
 const ModalWrapper = styled.div`
   position: fixed;
-  top: 40px;
+  top: 35px;
   right: 0;
   width: 100%;
-  background: white;
   z-index: 1000;
 
   @media screen and (min-width: 1024px) {
@@ -67,14 +66,7 @@ const BasketWrapper = styled.div`
     }
   }
 `;
-export default function Navbar({
-  logo,
-  itemName,
-  price,
-  size,
-  quantity,
-  subtotal,
-}) {
+export default function Navbar({ logo, cartItems }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleMouseEnter = () => {
@@ -84,7 +76,6 @@ export default function Navbar({
   const handleMouseLeave = () => {
     setIsModalVisible(false);
   };
-
   const handleBagClick = () => {
     setIsModalVisible((prev) => !prev);
   };
@@ -106,13 +97,7 @@ export default function Navbar({
           <IoBagOutline onClick={handleBagClick} />
           {isModalVisible && (
             <ModalWrapper>
-              <BasketModal
-                itemName={itemName}
-                price={price}
-                size={size}
-                quantity={quantity}
-                subtotal={subtotal}
-              />
+              <BasketModal cartItems={cartItems} />
             </ModalWrapper>
           )}
         </BasketWrapper>
