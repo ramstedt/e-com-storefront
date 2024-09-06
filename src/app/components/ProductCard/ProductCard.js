@@ -3,27 +3,13 @@ import styled from "styled-components";
 import Image from "next/image";
 import { useState } from "react";
 import { addItemToCart } from "@/app/lib/cartHelper";
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-
-  @media (min-width: 768px) {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @media (min-width: 1440px) {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-  }
-`;
+import Link from "next/link";
 
 const ContentWrapper = styled.div`
-  top: 0px;
-  display: flex;
+  position: absolute;
+  bottom: 0;
+  //display: flex;
   flex-direction: column;
-  height: 100%;
   align-items: flex-end;
   justify-content: flex-end;
   position: absolute;
@@ -140,7 +126,9 @@ export default function ProductCard({ item }) {
   return (
     <div>
       <MediaWrapper>
-        <Image src={item.mediaUrl} alt={item.altText} fill />
+        <Link href={`/product/${item.category}/${item.slug}`}>
+          <Image src={item.mediaUrl} alt={item.altText} fill />
+        </Link>
         <ContentWrapper>
           <Text>Select size</Text>
           <Sizes>
@@ -178,7 +166,7 @@ export default function ProductCard({ item }) {
         <div>
           <a href="">{item.name}</a>
         </div>
-        <div>{item.price}</div>
+        <div>£{item.price}</div>
       </Description>
     </div>
   );

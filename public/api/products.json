@@ -7,7 +7,9 @@
     "name": "Product Name",
     "description": "lorem ipsum",
     "shortDescription": "lorem",
-    "price": 200
+    "price": 200,
+    "category": "dress",
+    "slug": "dress-1"
   },
   "item2": {
     "id": 2,
@@ -17,7 +19,9 @@
     "name": "Product Name",
     "description": "lorem ipsum",
     "shortDescription": "lorem",
-    "price": 200
+    "price": 200,
+    "category": "dress",
+    "slug": "dress-2"
   },
   "item3": {
     "id": 3,
@@ -27,7 +31,9 @@
     "name": "Product Name",
     "description": "lorem ipsum",
     "shortDescription": "lorem",
-    "price": 200
+    "price": 200,
+    "category": "dress",
+    "slug": "dress-3"
   },
   "item4": {
     "id": 4,
@@ -37,7 +43,9 @@
     "name": "Product Name",
     "description": "lorem ipsum",
     "shortDescription": "lorem",
-    "price": 200
+    "price": 200,
+    "category": "dress",
+    "slug": "dress-4"
   },
   "item5": {
     "id": 5,
@@ -47,7 +55,9 @@
     "name": "Product Name",
     "description": "lorem ipsum",
     "shortDescription": "lorem",
-    "price": 200
+    "price": 200,
+    "category": "dress",
+    "slug": "dress-5"
   },
   "item6": {
     "id": 6,
@@ -57,7 +67,9 @@
     "name": "Product Name",
     "description": "lorem ipsum",
     "shortDescription": "lorem",
-    "price": 200
+    "price": 200,
+    "category": "sweater",
+    "slug": "sweater-"
   },
   "item7": {
     "id": 7,
@@ -67,7 +79,9 @@
     "name": "Product Name",
     "description": "lorem ipsum",
     "shortDescription": "lorem",
-    "price": 200
+    "price": 200,
+    "category": "sweater",
+    "slug": "sweater-"
   },
   "item8": {
     "id": 8,
@@ -77,6 +91,8 @@
     "name": "Product Name",
     "description": "lorem ipsum",
     "shortDescription": "lorem",
-    "price": 200
+    "price": 200,
+    "category": "sweater",
+    "slug": "sweater-"
   }
 }
