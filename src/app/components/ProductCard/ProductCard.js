@@ -5,6 +5,8 @@ import { useState } from "react";
 import { addItemToCart } from "@/app/lib/cartHelper";
 import Link from "next/link";
 
+const Wrapper = styled.div``;
+
 const ContentWrapper = styled.div`
   position: absolute;
   bottom: 0;
@@ -136,7 +138,7 @@ export default function ProductCard({ item }) {
   };
 
   return (
-    <div>
+    <Wrapper>
       <MediaWrapper>
         <Link href={`/product/${item.category}/${item.slug}`}>
           <Image src={item.mediaUrl} alt={item.altText} fill />
@@ -180,6 +182,6 @@ export default function ProductCard({ item }) {
         </div>
         <div>£{item.price}</div>
       </Description>
-    </div>
+    </Wrapper>
   );
 }

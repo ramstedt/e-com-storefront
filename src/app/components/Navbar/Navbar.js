@@ -1,9 +1,5 @@
 "use client";
-import {
-  IoSearchOutline,
-  IoBagOutline,
-  IoPersonOutline,
-} from "react-icons/io5";
+import { IoBagOutline, IoPersonOutline } from "react-icons/io5";
 import { AiOutlineGlobal } from "react-icons/ai";
 import { RxHamburgerMenu } from "react-icons/rx";
 import Link from "next/link";
@@ -12,6 +8,7 @@ import BasketModal from "../BasketModal/BasketModal";
 import { useState } from "react";
 import { Quicksand } from "next/font/google";
 import styled from "styled-components";
+import SearchButton from "../_Atoms/SearchButton/SearchButton";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -19,7 +16,7 @@ const quicksand = Quicksand({
 });
 
 const Nav = styled.nav`
-  height: 50px;
+  height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -37,6 +34,11 @@ const Logo = styled(Link)`
 const NavLinks = styled.div`
   display: flex;
   gap: 1rem;
+  align-items: center;
+
+  button {
+    background: none;
+  }
 
   svg {
     width: 22px;
@@ -66,6 +68,7 @@ const BasketWrapper = styled.div`
     }
   }
 `;
+
 export default function Navbar({ logo, cartItems }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -87,14 +90,20 @@ export default function Navbar({ logo, cartItems }) {
         Loom
       </Logo>
       <NavLinks>
-        <AiOutlineGlobal />
-        <IoSearchOutline />
-        <IoPersonOutline />
+        <button>
+          <AiOutlineGlobal />
+        </button>
+        <SearchButton />
+        <button>
+          <IoPersonOutline />
+        </button>
         <BasketWrapper
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          <IoBagOutline onClick={handleBagClick} />
+          <button>
+            <IoBagOutline onClick={handleBagClick} />
+          </button>
           {isModalVisible && (
             <ModalWrapper>
               <BasketModal cartItems={cartItems} />

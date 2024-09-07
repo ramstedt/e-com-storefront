@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const Wrapper = styled.div`
   width: 100vw;
-  height: calc(100dvh - 50px);
+  height: calc(100dvh - 60px);
   color: #ffffff;
   position: relative;
   overflow: hidden;
