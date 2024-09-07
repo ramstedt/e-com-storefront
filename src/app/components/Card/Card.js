@@ -82,16 +82,13 @@ export default function Card({
   altText,
   url,
 }) {
-  //look for last dot in string
-  const extensionRegex = /(?:\.([^.]+))$/;
-
-  const match = mediaUrl.match(extensionRegex);
-
-  const lowercase = match && match[1].toLowerCase();
-
+  const regex = /^\/videos/;
+  const isVideo = typeof mediaUrl === "string" && regex.test(mediaUrl);
   return (
     <Wrapper>
-      {lowercase === "jpg" ? (
+      {isVideo ? (
+        <video src={mediaUrl} autoPlay muted playsInline loop></video>
+      ) : (
         <Image
           alt={altText}
           src={mediaUrl}
@@ -99,8 +96,6 @@ export default function Card({
           priority={true}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
-      ) : (
-        <video src={mediaUrl} autoPlay muted playsInline loop></video>
       )}
       <ContentWrapper>
         <Content>

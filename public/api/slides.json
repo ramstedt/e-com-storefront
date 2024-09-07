@@ -1,0 +1,34 @@
+{
+  "slide1": {
+    "buttonText": "shop now",
+    "title": "Summer Sale",
+    "text": "Discover fantastic prices on our 2024 summer collection",
+    "mediaUrl": "/images/stock1.jpg",
+    "alt": "alt text",
+    "url": "/products"
+  },
+  "slide2": {
+    "buttonText": "shop now",
+    "title": "Autumn News",
+    "text": "Fresh styles for the season ahead",
+    "mediaUrl": "/images/stock2.jpg",
+    "alt": "alt text",
+    "url": "/products"
+  },
+  "slide3": {
+    "buttonText": "shop now",
+    "title": "Elevated Essentials",
+    "text": "Effortless style, upgraded",
+    "mediaUrl": "/images/stock3.jpg",
+    "alt": "alt text",
+    "url": "/products"
+  },
+  "slide4": {
+    "buttonText": "shop now",
+    "title": "Loom: Sustainable Fashion",
+    "text": "Earth-friendly designs, timeless appeal",
+    "mediaUrl": "/videos/video1.mp4",
+    "alt": "alt text",
+    "url": "/products"
+  }
+}

@@ -18,7 +18,7 @@ const Wrapper = styled.div`
   }
 `;
 
-export default function Catalogue() {
+export default function Products() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {

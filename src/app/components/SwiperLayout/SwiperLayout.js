@@ -19,6 +19,20 @@ import "swiper/css/navigation";
 
 export default function SwiperLayout() {
   const [windowWidth, setWindowWidth] = useState(0);
+  const [slides, setSlides] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchSlides() {
+      const res = await fetch("/api/slides.json");
+      const data = await res.json();
+      const slidesArray = Object.values(data);
+      setSlides(slidesArray);
+      setLoading(false);
+    }
+
+    fetchSlides();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -31,6 +45,7 @@ export default function SwiperLayout() {
     };
   }, []);
 
+  if (loading) return <div>loading</div>;
   return (
     <Swiper
       pagination={{
@@ -47,45 +62,19 @@ export default function SwiperLayout() {
       }}
       navigation={windowWidth >= 768 ? true : false}
     >
-      <SwiperSlide>
-        <Card
-          buttonText="shop now"
-          title="Summer Sale"
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-          mediaUrl="/images/stock1.jpg"
-          url="/catalogue"
-        />
-      </SwiperSlide>
-      <SwiperSlide>
-        <Card
-          buttonText="shop now"
-          title="Autumn News"
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-          mediaUrl="/images/stock2.jpg"
-          altText="alt text"
-          url="/catalogue"
-        />
-      </SwiperSlide>
-      <SwiperSlide>
-        <Card
-          buttonText="shop now"
-          title="Elevated Essentials"
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-          mediaUrl="/images/stock3.jpg"
-          altText="alt text"
-          url="/catalogue"
-        />
-      </SwiperSlide>
-      <SwiperSlide>
-        <Card
-          buttonText="shop now"
-          title="Loom: Suistanable Fashion"
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-          mediaUrl="/videos/video1.mp4"
-          altText="alt text"
-          url="/catalogue"
-        />
-      </SwiperSlide>
+      {slides &&
+        slides.map((slide, key) => (
+          <SwiperSlide key={key}>
+            <Card
+              buttonText={slide.buttonText}
+              title={slide.title}
+              text={slide.text}
+              mediaUrl={slide.mediaUrl}
+              altText={slide.alt}
+              url={slide.url}
+            />
+          </SwiperSlide>
+        ))}
     </Swiper>
   );
 }
