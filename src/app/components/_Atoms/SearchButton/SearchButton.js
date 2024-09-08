@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { IoSearchOutline } from "react-icons/io5";
+import Image from "next/image";
+import Link from "next/link";
 
 const Wrapper = styled.div`
   display: flex;
@@ -32,26 +34,38 @@ const SearchInput = styled.input`
 
 const SearchResults = styled.div`
   position: absolute;
-  top: 60px;
+  top: 88px;
   background-color: white;
-  width: 250px;
+  width: 100vw;
   border: 1px solid #ddd;
+  box-sizing: border-box;
   z-index: 9999;
+  left: 0;
 
-  @media screen and (max-width: 768px) {
-    width: calc(100vw - 8.4rem);
-    left: 0;
-    box-sizing: border-box;
+  @media screen and (min-width: 768px) {
+    width: 450px;
+    right: 0;
+    left: initial;
+    top: 50px;
   }
 `;
 
 const SearchResultItem = styled.div`
   padding: 0.5rem;
   border-bottom: 1px solid #ddd;
+  display: flex;
+  gap: 1rem;
 
   &:last-child {
     border-bottom: none;
   }
+`;
+
+const ImageWrapper = styled.div`
+  min-width: 100px;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
 `;
 
 export default function Searcbutto() {
@@ -101,8 +115,13 @@ export default function Searcbutto() {
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
               <SearchResultItem key={product.id}>
-                <p>{product.name}</p>
-                <p>${product.price}</p>
+                <ImageWrapper>
+                  <Image src={product.mediaUrl} alt={product.altText} fill />
+                </ImageWrapper>
+                <p>
+                  <Link href={product.slug}>{product.name}</Link>
+                  <br />${product.price}
+                </p>
               </SearchResultItem>
             ))
           ) : (
