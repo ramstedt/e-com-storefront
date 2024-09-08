@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { IoSearchOutline } from "react-icons/io5";
 import Image from "next/image";
@@ -9,9 +9,17 @@ const Wrapper = styled.div`
 
   button {
     background: none;
+    text-transform: uppercase;
+    display: flex;
+    gap: 0.2rem;
   }
 `;
-
+const Desktop = styled.div`
+  @media screen and (max-width: 425px) {
+    visibility: hidden;
+    display: none;
+  }
+`;
 const SearchInput = styled.input`
   width: ${({ isVisible }) => (isVisible ? "200px" : "0")};
   opacity: ${({ isVisible }) => (isVisible ? "1" : "0")};
@@ -20,16 +28,6 @@ const SearchInput = styled.input`
   background: white;
   transition: width 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
   outline: none;
-
-  @media screen and (max-width: 425px) {
-    //width: ${({ isVisible }) => (isVisible ? "100vw" : "0")};
-    //transition: height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
-    //position: absolute;
-    //top: 20px;
-    //right: 0;
-    //box-sizing: border-box;
-    //z-index: 9999;
-  }
 `;
 
 const SearchResults = styled.div`
@@ -68,11 +66,12 @@ const ImageWrapper = styled.div`
   overflow: hidden;
 `;
 
-export default function Searcbutto() {
+export default function SearchButton() {
   const [searchTerm, setSearchTerm] = useState("");
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
+  const wrapperRef = useRef(null);
 
   useEffect(() => {
     async function fetchProducts() {
@@ -96,9 +95,24 @@ export default function Searcbutto() {
     }
   }, [searchTerm, products]);
 
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        setIsSearchVisible(false);
+        setSearchTerm("");
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [wrapperRef]);
+
   return (
-    <Wrapper>
+    <Wrapper ref={wrapperRef}>
       <button>
+        <Desktop>Search</Desktop>
         <IoSearchOutline onClick={() => setIsSearchVisible(!isSearchVisible)} />
       </button>
 
@@ -110,7 +124,7 @@ export default function Searcbutto() {
         isVisible={isSearchVisible}
       />
 
-      {searchTerm && (
+      {isSearchVisible && searchTerm && (
         <SearchResults>
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (

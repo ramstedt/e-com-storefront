@@ -48,6 +48,9 @@ const NavLinks = styled.div`
 
   button {
     background: none;
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
   }
 
   svg {
@@ -84,6 +87,15 @@ const BasketWrapper = styled.div`
   }
 `;
 
+const Desktop = styled.div`
+  text-transform: uppercase;
+
+  @media screen and (max-width: 425px) {
+    visibility: hidden;
+    display: none;
+  }
+`;
+
 export default function Navbar({ logo, cartItems }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -107,6 +119,7 @@ export default function Navbar({ logo, cartItems }) {
       <NavLinks>
         <SearchButton />
         <button>
+          <Desktop>Account</Desktop>
           <IoPersonOutline />
         </button>
         <BasketWrapper
@@ -114,6 +127,7 @@ export default function Navbar({ logo, cartItems }) {
           onMouseLeave={handleMouseLeave}
         >
           <button>
+            <Desktop>Bag</Desktop>
             <IoBagOutline onClick={handleBagClick} />
           </button>
           {isModalVisible && (
