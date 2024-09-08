@@ -4,9 +4,7 @@ import { IoSearchOutline } from "react-icons/io5";
 
 const Wrapper = styled.div`
   display: flex;
-  @media screen and (max-width: 425px) {
-    display: initial;
-  }
+
   button {
     background: none;
   }
@@ -19,17 +17,16 @@ const SearchInput = styled.input`
   border: 1px solid black;
   background: white;
   transition: width 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
-
   outline: none;
 
   @media screen and (max-width: 425px) {
-    width: ${({ isVisible }) => (isVisible ? "100vw" : "0")};
-    transition: height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
-    position: absolute;
-    top: 20px;
-    left: -15.4rem;
-    box-sizing: border-box;
-    z-index: 9999;
+    //width: ${({ isVisible }) => (isVisible ? "100vw" : "0")};
+    //transition: height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
+    //position: absolute;
+    //top: 20px;
+    //right: 0;
+    //box-sizing: border-box;
+    //z-index: 9999;
   }
 `;
 
@@ -91,15 +88,13 @@ export default function Searcbutto() {
         <IoSearchOutline onClick={() => setIsSearchVisible(!isSearchVisible)} />
       </button>
 
-      <div style={{ position: "relative", display: "flex" }}>
-        <SearchInput
-          type="text"
-          placeholder="Search products..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          isVisible={isSearchVisible}
-        />
-      </div>
+      <SearchInput
+        type="text"
+        placeholder="Search products..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        isVisible={isSearchVisible}
+      />
 
       {searchTerm && (
         <SearchResults>

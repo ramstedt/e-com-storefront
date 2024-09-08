@@ -1,6 +1,5 @@
 "use client";
 import { IoBagOutline, IoPersonOutline } from "react-icons/io5";
-import { AiOutlineGlobal } from "react-icons/ai";
 import { RxHamburgerMenu } from "react-icons/rx";
 import Link from "next/link";
 import Image from "next/image";
@@ -16,11 +15,19 @@ const quicksand = Quicksand({
 });
 
 const Nav = styled.nav`
-  height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 0 0.4rem 0 0.4rem;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow: hidden;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    gap: 0;
+    height: 60px;
+  }
 `;
 
 const Logo = styled(Link)`
@@ -35,6 +42,9 @@ const NavLinks = styled.div`
   display: flex;
   gap: 1rem;
   align-items: center;
+  width: 100%;
+  justify-content: space-around;
+  height: 40px;
 
   button {
     background: none;
@@ -45,10 +55,15 @@ const NavLinks = styled.div`
     height: 22px;
     cursor: pointer;
   }
+
+  @media screen and (min-width: 768px) {
+    justify-content: center;
+    width: initial;
+  }
 `;
 const ModalWrapper = styled.div`
   position: fixed;
-  top: 35px;
+  top: 45px;
   right: 0;
   width: 100%;
   z-index: 1000;
@@ -90,9 +105,6 @@ export default function Navbar({ logo, cartItems }) {
         Loom
       </Logo>
       <NavLinks>
-        <button>
-          <AiOutlineGlobal />
-        </button>
         <SearchButton />
         <button>
           <IoPersonOutline />
