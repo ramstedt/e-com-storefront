@@ -1,21 +1,20 @@
-"use client";
-import Card from "../Card/Card";
+'use client';
+import Card from '../Card/Card';
 import {
   Pagination,
   Mousewheel,
   A11y,
   Autoplay,
   Navigation,
-} from "swiper/modules";
-import { useState, useEffect } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+} from 'swiper/modules';
+import { useState, useEffect } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/bundle";
-import "./swiperlayout.css";
-import "swiper/css/autoplay";
-import "swiper/css/navigation";
+import 'swiper/css';
+import 'swiper/css/bundle';
+import './swiperlayout.css';
+import 'swiper/css/autoplay';
+import 'swiper/css/navigation';
 
 export default function SwiperLayout() {
   const [windowWidth, setWindowWidth] = useState(0);
@@ -24,7 +23,7 @@ export default function SwiperLayout() {
 
   useEffect(() => {
     async function fetchSlides() {
-      const res = await fetch("/api/slides.json");
+      const res = await fetch('/api/slides.json');
       const data = await res.json();
       const slidesArray = Object.values(data);
       setSlides(slidesArray);
@@ -39,9 +38,9 @@ export default function SwiperLayout() {
       setWindowWidth(window.innerWidth);
     };
     setWindowWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
@@ -52,8 +51,8 @@ export default function SwiperLayout() {
         clickable: true,
       }}
       modules={[Pagination, Mousewheel, A11y, Autoplay, Navigation]}
-      className="mySwiper"
-      direction={windowWidth >= 768 ? "horizontal" : "vertical"}
+      className='mySwiper'
+      direction={windowWidth >= 768 ? 'horizontal' : 'vertical'}
       centeredSlides={true}
       freeMode={true}
       autoplay={{

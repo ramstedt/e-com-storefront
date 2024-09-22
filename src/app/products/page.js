@@ -1,7 +1,7 @@
-"use client";
-import { useEffect, useState } from "react";
-import styled from "styled-components";
-import ProductCard from "../components/ProductCard/ProductCard";
+'use client';
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import ProductCard from '../components/ProductCard/ProductCard';
 
 const Wrapper = styled.div`
   display: flex;
@@ -24,11 +24,11 @@ export default function Products() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("/api/products.json");
+        const response = await fetch('/api/products.json');
         const data = await response.json();
         setProducts(Object.values(data));
       } catch (error) {
-        console.error("Failed to fetch products", error);
+        console.error('Failed to fetch products', error);
       }
     };
 

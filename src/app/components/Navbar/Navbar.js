@@ -1,17 +1,17 @@
-"use client";
-import { IoBagOutline, IoPersonOutline } from "react-icons/io5";
-import { RxHamburgerMenu } from "react-icons/rx";
-import Link from "next/link";
-import Image from "next/image";
-import BasketModal from "../BasketModal/BasketModal";
-import { useState } from "react";
-import { Quicksand } from "next/font/google";
-import styled from "styled-components";
-import SearchButton from "../_Atoms/SearchButton/SearchButton";
+'use client';
+import { IoBagOutline, IoPersonOutline } from 'react-icons/io5';
+import { RxHamburgerMenu } from 'react-icons/rx';
+import Link from 'next/link';
+import Image from 'next/image';
+import BasketModal from '../BasketModal/BasketModal';
+import { useState } from 'react';
+import { Quicksand } from 'next/font/google';
+import styled from 'styled-components';
+import SearchButton from '../_Atoms/SearchButton/SearchButton';
 
 const quicksand = Quicksand({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
 });
 
 const Nav = styled.nav`
@@ -96,7 +96,7 @@ const Desktop = styled.div`
   }
 `;
 
-export default function Navbar({ logo, cartItems }) {
+export default function Navbar({ logo }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleMouseEnter = () => {
@@ -112,8 +112,8 @@ export default function Navbar({ logo, cartItems }) {
 
   return (
     <Nav>
-      <Logo href="/" className={quicksand.className}>
-        <Image src={logo} height="40" width="40" alt="logo" />
+      <Logo href='/' className={quicksand.className}>
+        <Image src={logo} height='40' width='40' alt='logo' />
         Loom
       </Logo>
       <NavLinks>
@@ -132,7 +132,7 @@ export default function Navbar({ logo, cartItems }) {
           </button>
           {isModalVisible && (
             <ModalWrapper>
-              <BasketModal cartItems={cartItems} />
+              <BasketModal />
             </ModalWrapper>
           )}
         </BasketWrapper>

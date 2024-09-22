@@ -1,11 +1,11 @@
-import styled from "styled-components";
-import Image from "next/image";
-import Link from "next/link";
-import { removeItemFromCart } from "@/app/lib/cartHelper";
+import styled from 'styled-components';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeItemFromCart } from '../../redux/cartSlice';
 
 const Wrapper = styled.div`
   padding: 1rem;
-  //display: flex;
   flex-direction: column;
   align-items: center;
   background-color: white;
@@ -80,16 +80,16 @@ const PaymentLink = styled(Link)`
     color: black;
   }
 `;
+export default function BasketModal() {
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  const dispatch = useDispatch();
 
-export default function BasketModal({ cartItems }) {
-  const subtotal = cartItems.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
+  const subtotal = cartItems.reduce((total, item) => {
+    return total + item.price * item.quantity;
+  }, 0);
 
-  const handleRemove = (event, itemId, size) => {
-    event.preventDefault();
-    removeItemFromCart(itemId, size);
+  const handleRemove = (id, size) => {
+    dispatch(removeItemFromCart({ id, size }));
   };
 
   return (
@@ -99,14 +99,15 @@ export default function BasketModal({ cartItems }) {
       <hr />
       {cartItems.length > 0 ? (
         <>
-          {cartItems.map((item, index) => (
-            <ItemWrapper key={index}>
+          {cartItems.map((item) => (
+            <ItemWrapper key={`${item.id}-${item.size}`}>
+              {console.log(item)}
               <ImageWrapper>
                 <Image
                   src={item.mediaUrl}
                   alt={item.altText}
                   fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                   priority={false}
                 />
               </ImageWrapper>
@@ -120,8 +121,11 @@ export default function BasketModal({ cartItems }) {
                   <div>Quantity: {item.quantity}</div>
                 </div>
                 <Link
-                  href="/"
-                  onClick={(event) => handleRemove(event, item.id, item.size)}
+                  href='#'
+                  onClick={(event) => {
+                    event.preventDefault();
+                    handleRemove(item.id, item.size);
+                  }}
                 >
                   Remove
                 </Link>
@@ -131,9 +135,9 @@ export default function BasketModal({ cartItems }) {
 
           <Subtotal>
             <div>Subtotal</div>
-            <div>£{subtotal}</div>
+            <div>£{subtotal.toFixed(2)}</div>
           </Subtotal>
-          <PaymentLink href="/checkout">Proceed to checkout</PaymentLink>
+          <PaymentLink href='/checkout'>Proceed to checkout</PaymentLink>
         </>
       ) : (
         <p>Your cart is empty.</p>

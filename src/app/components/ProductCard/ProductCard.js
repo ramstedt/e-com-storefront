@@ -1,9 +1,10 @@
-"use client";
-import styled from "styled-components";
-import Image from "next/image";
-import { useState } from "react";
-import { addItemToCart } from "@/app/lib/cartHelper";
-import Link from "next/link";
+'use client';
+import styled from 'styled-components';
+import Image from 'next/image';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addItemToCart } from '../../redux/cartSlice';
+import Link from 'next/link';
 
 const Wrapper = styled.div``;
 
@@ -122,15 +123,19 @@ const Description = styled.div`
 
 export default function ProductCard({ item }) {
   const [active, setActive] = useState(-1);
-  const [buttonText, setButtonText] = useState("Add to cart");
-
+  const [buttonText, setButtonText] = useState('Add to cart');
+  const dispatch = useDispatch();
   const handleAddToCart = (item, size) => {
-    addItemToCart(item.id, 1, size);
-    setButtonText("Added");
-
-    setTimeout(() => {
-      setButtonText("Add to cart");
-    }, 2000);
+    dispatch(
+      addItemToCart({
+        id: item.id,
+        size,
+        quantity: 1,
+        mediaUrl: item.mediaUrl,
+        price: item.price,
+        altText: item.altText,
+      })
+    );
   };
 
   const handleClick = (id, size) => {
@@ -140,9 +145,7 @@ export default function ProductCard({ item }) {
   return (
     <Wrapper>
       <MediaWrapper>
-        <Link href={`/product/${item.category}/${item.slug}`}>
-          <Image src={item.mediaUrl} alt={item.altText} fill />
-        </Link>
+        <Image src={item.mediaUrl} alt={item.altText} fill />
         <ContentWrapper>
           <Text>Select size</Text>
           <Sizes>
@@ -154,9 +157,9 @@ export default function ProductCard({ item }) {
                 style={{
                   backgroundColor:
                     active === `${item.id}, ${size}`
-                      ? "rgb(178, 174, 191)"
-                      : "transparent",
-                  color: active === `${item.id}, ${size}` ? "white" : null,
+                      ? 'rgb(178, 174, 191)'
+                      : 'transparent',
+                  color: active === `${item.id}, ${size}` ? 'white' : null,
                 }}
               >
                 {size}
@@ -165,9 +168,9 @@ export default function ProductCard({ item }) {
           </Sizes>
           <Button
             onClick={() => {
-              const selectedSize = active.split(", ")[1];
+              const selectedSize = active.split(', ')[1];
               if (selectedSize) {
-                handleAddToCart(item, selectedSize);
+                handleAddToCart(item, selectedSize); // Call handleAddToCart when button is clicked
               }
             }}
             disabled={active === -1}
@@ -178,7 +181,9 @@ export default function ProductCard({ item }) {
       </MediaWrapper>
       <Description>
         <div>
-          <a href="">{item.name}</a>
+          <Link href={`/product/${item.category}/${item.slug}`}>
+            {item.name}
+          </Link>
         </div>
         <div>£{item.price}</div>
       </Description>

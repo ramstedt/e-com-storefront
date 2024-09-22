@@ -1,4 +1,4 @@
-import SwiperLayout from "./components/SwiperLayout/SwiperLayout";
+import SwiperLayout from './components/SwiperLayout/SwiperLayout';
 
 export default function Home() {
   return (
