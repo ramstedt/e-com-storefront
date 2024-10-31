@@ -1,13 +1,13 @@
-import { useState, useEffect, useRef } from 'react';
-import styled from 'styled-components';
-import { IoSearchOutline } from 'react-icons/io5';
-import Image from 'next/image';
-import Link from 'next/link';
+import { useState, useEffect, useRef } from "react";
+import styled from "styled-components";
+import { IoSearchOutline } from "react-icons/io5";
+import Image from "next/image";
+import Link from "next/link";
 
 const SearchInput = styled.input`
-  width: ${({ $isvisible }) => ($isvisible ? '200px' : '0')};
-  opacity: ${({ $isvisible }) => ($isvisible ? '1' : '0')};
-  padding: ${({ $isvisible }) => ($isvisible ? '0.5rem' : '0')};
+  width: ${({ $isvisible }) => ($isvisible ? "200px" : "0")};
+  opacity: ${({ $isvisible }) => ($isvisible ? "1" : "0")};
+  padding: ${({ $isvisible }) => ($isvisible ? "0.5rem" : "0")};
   border: 1px solid black;
   background: white;
   transition: width 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
@@ -69,7 +69,7 @@ const ImageWrapper = styled.div`
 `;
 
 export default function SearchButton() {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
@@ -77,7 +77,7 @@ export default function SearchButton() {
 
   useEffect(() => {
     async function fetchProducts() {
-      const res = await fetch('/api/products.json');
+      const res = await fetch("/api/products.json");
       const data = await res.json();
       const productsArray = Object.values(data);
       setProducts(productsArray);
@@ -87,7 +87,7 @@ export default function SearchButton() {
   }, []);
 
   useEffect(() => {
-    if (searchTerm === '') {
+    if (searchTerm === "") {
       setFilteredProducts([]);
     } else {
       const results = products.filter((product) =>
@@ -101,26 +101,26 @@ export default function SearchButton() {
     function handleClickOutside(event) {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
         setIsSearchVisible(false);
-        setSearchTerm('');
+        setSearchTerm("");
       }
     }
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [wrapperRef]);
 
   return (
     <Wrapper ref={wrapperRef}>
-      <button>
+      <button onClick={() => setIsSearchVisible(!isSearchVisible)}>
         <Desktop>Search</Desktop>
-        <IoSearchOutline onClick={() => setIsSearchVisible(!isSearchVisible)} />
+        <IoSearchOutline />
       </button>
 
       <SearchInput
-        type='text'
-        placeholder='Search products...'
+        type="text"
+        placeholder="Search products..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         $isvisible={isSearchVisible}

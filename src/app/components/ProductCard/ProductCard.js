@@ -1,10 +1,10 @@
-'use client';
-import styled from 'styled-components';
-import Image from 'next/image';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addItemToCart } from '../../redux/cartSlice';
-import Link from 'next/link';
+"use client";
+import styled from "styled-components";
+import Image from "next/image";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addItemToCart } from "../../redux/cartSlice";
+import Link from "next/link";
 
 const Wrapper = styled.div``;
 
@@ -123,7 +123,7 @@ const Description = styled.div`
 
 export default function ProductCard({ item }) {
   const [active, setActive] = useState(-1);
-  const [buttonText, setButtonText] = useState('Add to cart');
+  const [buttonText, setButtonText] = useState("Add to cart");
   const dispatch = useDispatch();
   const handleAddToCart = (item, size) => {
     dispatch(
@@ -157,9 +157,9 @@ export default function ProductCard({ item }) {
                 style={{
                   backgroundColor:
                     active === `${item.id}, ${size}`
-                      ? 'rgb(178, 174, 191)'
-                      : 'transparent',
-                  color: active === `${item.id}, ${size}` ? 'white' : null,
+                      ? "rgb(178, 174, 191)"
+                      : "transparent",
+                  color: active === `${item.id}, ${size}` ? "white" : null,
                 }}
               >
                 {size}
@@ -168,7 +168,7 @@ export default function ProductCard({ item }) {
           </Sizes>
           <Button
             onClick={() => {
-              const selectedSize = active.split(', ')[1];
+              const selectedSize = active.split(", ")[1];
               if (selectedSize) {
                 handleAddToCart(item, selectedSize); // Call handleAddToCart when button is clicked
               }
